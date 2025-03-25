@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.get ('/api/v1/admin', adminRouter)
+app.use('/api/v1/admin', adminRouter)
 
 app.listen(port, ()=>{
     console.log(`Server is running on port ${port}`)
