@@ -7,7 +7,7 @@ const authAdmin = async (req, res, next) => {
         if (!atoken) {
             return res.json({success: false, message:"Not authenticated Login Again"})
         }
-        const decoded = jwt.verify(atoken, process.env.JWT_SECRET);
+        const token_decode = jwt.verify(atoken, process.env.JWT_SECRET);
 
         if(token_decode!== process.env.ADMIN_EMAIL+ADMIN_PASSWORD){
             return res.json({success: false, message:"Not authenticated Login Again"})
@@ -20,3 +20,4 @@ const authAdmin = async (req, res, next) => {
         res.json({success: false, message: error.message})
     }
 }
+export default authAdmin
