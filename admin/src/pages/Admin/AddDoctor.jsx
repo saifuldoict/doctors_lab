@@ -43,11 +43,21 @@ const AddDoctor = () => {
     const {data} = await axios.post(backendUrl + '/api/admin/add-doctor', formData, {headers: {aToken}})
     if (data.success){
       toast.success(data.message)
+      setDocImg(false)
+      setName('')
+      setEmail('')
+      setPassword('')
+      setFees('')
+      setDegree('')
+      setAbout('')
+      setAddress('')
+
     }else{
       toast.error(data.message)
     }
-    }catch{
-      console.log('Error')
+    }catch (error) {
+      toast.error('error.message')
+      console.log(error)
     }
   }
 
@@ -97,8 +107,9 @@ const AddDoctor = () => {
 
           <div className='w-[50%] lg:flex flex-col gap-4'>
               <div className='flex-1 flex flex-col gap-1'>
-                <p>Speciality</p>
-                <select onChange={(e)=>setSpeciality(e.target.value)} value={speciality} className='border rounded px-3 py-2' name="" id="">
+                <p>Specialty</p>
+                
+                <select onChange={(e)=>setSpeciality(e.target.value)} value={speciality}  className='border rounded px-3 py-2' name="" id="">
                   <option value="General physician">General physician</option>
                   <option value="Gynecologist">Gynecologist</option>
                   <option value="Dermatologist">Dermatologist</option>
