@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
-export const AdminContext = createContext();
 import axios from "axios";
+export const AdminContext = createContext();
 import {toast} from 'react-toastify';
 
 const AdminContextProvider = (props)=>{
@@ -21,10 +21,27 @@ const AdminContextProvider = (props)=>{
             toast.error(error.message)
         }
     }
+    const changeAvailability = async (docId)=> {
+        try {
+            const {data} = await axios.post(backendUrl + '/api/admin/change-availability', {docId}, {headers:{aToken}})
+            
+            if(data.success){
+                toast.success(data.message)
+                getAllDoctors()
+                
+            }else{
+                toast.error(data.message)}
+
+        }catch(error){
+            toast.error(error.message)
+        }
+
+    }
     const value ={
         aToken,setAToken,
         backendUrl,doctors,
-        getAllDoctors
+        getAllDoctors,
+        changeAvailability
     }
     return (
         <AdminContext.Provider value={value}>

@@ -1,13 +1,14 @@
 import React, { useContext, useEffect } from 'react'
-import { AdminContext } from '../../context/AdminContext'
+import { AdminContext } from '../../context/AdminContext.jsx'
 
 const DoctorsList = () => {
-  const {doctors, aToken, getAllDoctors} = useContext(AdminContext)
+  const {doctors, aToken, getAllDoctors, changeAvailability} = useContext(AdminContext)
   
-
+console.log(doctors)
   useEffect (()=>{
     if(aToken){
       getAllDoctors()
+      
     }
   }, [aToken])
 
@@ -17,19 +18,19 @@ const DoctorsList = () => {
       
       <div className='w-full flex flex-wrap gap-4 pt-5 gap-y-6'>
         {
-          doctors.map((item,index) => {
+          doctors.map((item,index) => (
             
             <div className='border border-indigo-200 rounded-xl max-w-56 overflow-hidden cursor-pointer group' key={index} >
               <img className='bg-indigo-50 group-hover:bg-sky-500 transition-all duration-500' src={item.image} alt=''/>
               <div className='p-4'>
                 <p className='text-neutral-800 text-lg font-medium'>{item.name}</p>
                 <div className='mt-2 flex items-center gap-1 text-sm'>
-                  <input type='checkbox' checked={item.available}></input>
+                  <input onChange={()=>changeAvailability(item._id)} type='checkbox' checked={item.available}></input>
                   <p>Available</p>
                 </div>
               </div>
             </div>
-          })
+          ))
         }
       </div>
     </div>
